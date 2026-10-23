@@ -21,7 +21,7 @@ To save the run's structured reports into a timestamped artifacts folder for rev
 
 If the Bench site is already prepared and its server is running, install dependencies/browsers as needed and call:
 
-    npm install --no-audit --no-fund --package-lock=false
+    npm install --no-audit --no-fund
     npx playwright install chromium
     npm run test:ui
 
