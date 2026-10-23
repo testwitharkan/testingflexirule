@@ -10,8 +10,8 @@ test.describe("Rule form conditional behavior", () => {
     await page.goto("/app/rule/new-rule-1");
 
     const triggerType = page.locator('[data-fieldname="trigger_type"] select');
-    const triggerEvent = page.locator('[data-fieldname="trigger_event"]');
-    const triggerCondition = page.locator('[data-fieldname="trigger_condition"]');
+    const triggerEvent = page.locator('.frappe-control[data-fieldname="trigger_event"]');
+    const triggerCondition = page.locator('.frappe-control[data-fieldname="trigger_condition"]');
 
     await expect(triggerType).toBeVisible({ timeout: 30000 });
     await expect(triggerEvent).toBeVisible();
@@ -22,7 +22,7 @@ test.describe("Rule form conditional behavior", () => {
 
     await triggerType.selectOption({ label: "Callable Event" });
     await expect(triggerEvent).toBeHidden();
-    await expect(page.locator('[data-fieldname="exposed_as_subrule"]')).toBeVisible();
+    await expect(page.locator('.frappe-control[data-fieldname="exposed_as_subrule"]')).toBeVisible();
   });
 
   test("an active Rule is locked and offers the deactivation dialog", async ({
