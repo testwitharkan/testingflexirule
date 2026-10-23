@@ -1,0 +1,31 @@
+{
+  "default_target": "version-15",
+  "targets": {
+    "version-15": {
+      "frappe_branch": "version-15",
+      "erpnext_branch": "version-15",
+      "flexirule_branch": "develop",
+      "runtime_requirements": {
+        "python": "3.10 or newer, within the supported Frappe v15 range",
+        "nodejs": "18 or newer",
+        "mariadb": "10.6.6 or newer"
+      },
+      "snapshot_strategy": "default-snapshot"
+    },
+    "version-16": {
+      "frappe_branch": "version-16",
+      "erpnext_branch": "version-16",
+      "flexirule_branch": "develop",
+      "runtime_requirements": {
+        "python": "3.14",
+        "nodejs": "24",
+        "mariadb": "11.8"
+      },
+      "snapshot_strategy": "separate-compatible-snapshot",
+      "notes": [
+        "Verify current official Frappe requirements before provisioning.",
+        "Verify that the selected FlexiRule branch supports Frappe v16 before installing it."
+      ]
+    }
+  }
+}
