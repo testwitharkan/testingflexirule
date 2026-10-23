@@ -116,6 +116,8 @@ bench --site "${SITE_NAME}" install-app flexirule
 
 # Complete the native Frappe setup wizard so browser login lands in Desk.
 bench --site "${SITE_NAME}" execute frappe.utils.install.complete_setup_wizard
+# The native Frappe E2E setup sequence resets the Administrator password after wizard completion.
+bench --site "${SITE_NAME}" set-admin-password admin
 
 # 10. Build Assets
 echo "Building assets..."
