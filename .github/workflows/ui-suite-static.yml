@@ -1,0 +1,43 @@
+name: UI suite static checks
+
+on:
+  pull_request:
+    paths:
+      - "playwright.config.js"
+      - "package.json"
+      - "tests/**"
+      - "scripts/**"
+      - ".github/workflows/ui-suite-static.yml"
+  push:
+    paths:
+      - "playwright.config.js"
+      - "package.json"
+      - "tests/**"
+      - "scripts/**"
+      - ".github/workflows/ui-suite-static.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    name: JavaScript and shell syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate package metadata
+        run: node -e 'JSON.parse(require("node:fs").readFileSync("package.json", "utf8"))'
+      - name: Parse Playwright configuration and every test module
+        run: |
+          node --check playwright.config.js
+          find tests -type f -name '*.js' -print0 | xargs -0 -r -n1 node --check
+      - name: Parse all shell scripts
+        run: |
+          for script in scripts/*.sh; do
+            bash -n "$script"
+          done
