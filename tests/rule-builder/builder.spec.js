@@ -65,6 +65,8 @@ test.describe("FlexiRule Visual Builder", () => {
     const modal = page.locator(".config-modal-container");
     await expect(modal).toBeVisible({ timeout: 20000 });
     await expect(modal.locator(".workspace-view-container")).toBeVisible();
+    await expect(modal.locator(".assignment-config")).toBeVisible();
+    await expect(modal.locator(".assignment-config .add-assignment-btn")).toBeVisible();
 
     await modal.locator('.header-toolbar button[title*="Raw Configuration"]').click();
     await expect(modal.locator(".full-raw-config-container")).toBeVisible();
@@ -83,7 +85,7 @@ test.describe("FlexiRule Visual Builder", () => {
     await page.goto("/app/rule-builder/" + encodeURIComponent(doc.name));
     await expect(page.locator(".vue-flow")).toBeVisible({ timeout: 60000 });
 
-    await addAction(page, "Assignment", "PW Persisted Assignment");
+    await addAction(page, "Wait", "PW Persisted Wait");
 
     const saveButton = page.getByRole("button", { name: /Save Rule/ });
     await expect(saveButton).toBeVisible();
@@ -92,7 +94,7 @@ test.describe("FlexiRule Visual Builder", () => {
 
     await page.reload();
     await expect(page.locator(".vue-flow")).toBeVisible({ timeout: 60000 });
-    await expect(page.locator(".vue-flow__node").filter({ hasText: "PW Persisted Assignment" }))
+    await expect(page.locator(".vue-flow__node").filter({ hasText: "PW Persisted Wait" }))
       .toBeVisible({ timeout: 30000 });
   });
 });
