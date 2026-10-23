@@ -59,7 +59,7 @@ test.describe("FlexiRule Visual Builder", () => {
     await page.goto("/app/rule-builder/" + encodeURIComponent(doc.name));
     await expect(page.locator(".vue-flow")).toBeVisible({ timeout: 60000 });
 
-    const node = await addAction(page, "Condition", "PW Condition Modal");
+    const node = await addAction(page, "Assignment", "PW Assignment Modal");
     await node.dblclick();
 
     const modal = page.locator(".config-modal-container");
@@ -83,21 +83,16 @@ test.describe("FlexiRule Visual Builder", () => {
     await page.goto("/app/rule-builder/" + encodeURIComponent(doc.name));
     await expect(page.locator(".vue-flow")).toBeVisible({ timeout: 60000 });
 
-    await addAction(page, "Condition", "PW Persisted Condition");
+    await addAction(page, "Assignment", "PW Persisted Assignment");
 
     const saveButton = page.getByRole("button", { name: /Save Rule/ });
     await expect(saveButton).toBeVisible();
-    const saveResponse = page.waitForResponse((response) =>
-      response.url().includes("frappe.ruleflow") ||
-      response.url().includes("method=frappe.client.save")
-    ).catch(() => null);
     await saveButton.click();
     await expect(page.locator(".desk-alert.green")).toContainText("Saved", { timeout: 30000 });
-    await saveResponse;
 
     await page.reload();
     await expect(page.locator(".vue-flow")).toBeVisible({ timeout: 60000 });
-    await expect(page.locator(".vue-flow__node").filter({ hasText: "PW Persisted Condition" }))
+    await expect(page.locator(".vue-flow__node").filter({ hasText: "PW Persisted Assignment" }))
       .toBeVisible({ timeout: 30000 });
   });
 });
