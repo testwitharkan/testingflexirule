@@ -42,6 +42,7 @@ test.describe("FlexiRule Desk smoke checks", () => {
 
   test("Rule form saves its native Link and Select fields", async ({ page, testRules }) => {
     const unique = "PW_UI_FORM_" + Date.now();
+    testRules.track(unique);
     await page.goto("/app/rule/new-rule-1");
 
     const nameInput = page.locator('[data-fieldname="rule_name"] input');
@@ -67,10 +68,10 @@ test.describe("FlexiRule Desk smoke checks", () => {
       timeout: 30000,
     });
 
-    const saved = await page.evaluate((ruleName) => {
-      const doc = window.frappe.get_doc("Rule", ruleName);
+    const saved = await page.evaluate(() => {
+      const doc = window.cur_frm && window.cur_frm.doc;
       return doc ? { name: doc.name, is_active: doc.is_active } : null;
-    }, unique);
+    });
     if (saved && saved.name) testRules.track(saved.name);
   });
 });
