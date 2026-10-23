@@ -28,6 +28,7 @@ export CI=Yes
 export RUN_PLAYWRIGHT_TESTS=${RUN_PLAYWRIGHT_TESTS:-"0"}
 export CAPTURE_SCREENSHOTS=${CAPTURE_SCREENSHOTS:-"0"}
 export PLAYWRIGHT_BASE_URL=${PLAYWRIGHT_BASE_URL:-"http://localhost:8000"}
+export ARCHIVE_PLAYWRIGHT_REPORTS=${ARCHIVE_PLAYWRIGHT_REPORTS:-"0"}
 # ==============================================================================
 
 echo "Starting environment setup for FlexiRule..."
@@ -160,6 +161,19 @@ if [ "$RUN_PLAYWRIGHT_TESTS" = "1" ]; then
     set -e
 else
     echo "Playwright UI tests were not requested (RUN_PLAYWRIGHT_TESTS=0)."
+fi
+
+ARCHIVE_EXIT_CODE=0
+if [ "$RUN_PLAYWRIGHT_TESTS" = "1" ] && [ "$ARCHIVE_PLAYWRIGHT_REPORTS" = "1" ]; then
+    echo "Archiving Playwright reports requested..."
+    cd "$GITHUB_WORKSPACE"
+    set +e
+    bash scripts/archive-playwright-results.sh
+    ARCHIVE_EXIT_CODE=$?
+    set -e
+    if [ "$ARCHIVE_EXIT_CODE" -ne 0 ] && [ "$UI_TEST_EXIT_CODE" -eq 0 ]; then
+        UI_TEST_EXIT_CODE=$ARCHIVE_EXIT_CODE
+    fi
 fi
 
 echo "Shutting down background Bench server..."
