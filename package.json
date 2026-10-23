@@ -1,0 +1,19 @@
+{
+  "name": "testingflexirule",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright UI test harness for FlexiRule on Frappe Framework v15",
+  "scripts": {
+    "test:ui": "playwright test",
+    "test:smoke": "playwright test tests/smoke",
+    "test:builder": "playwright test tests/rule-builder",
+    "test:layout": "playwright test tests/layout",
+    "test:ui:screenshots": "cross-env CAPTURE_SCREENSHOTS=1 playwright test",
+    "report": "playwright show-report reports/html",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.61.1",
+    "cross-env": "7.0.3"
+  }
+}
