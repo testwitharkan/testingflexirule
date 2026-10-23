@@ -23,7 +23,12 @@ fi
 
 if [ ! -d node_modules/@playwright/test ]; then
   echo "Installing Playwright test dependencies..."
-  npm install --no-audit --no-fund --package-lock=false
+  if [ -f package-lock.json ]; then
+    npm ci --no-audit --no-fund
+  else
+    # On the first run this creates package-lock.json; commit it for reproducible future installs.
+    npm install --no-audit --no-fund
+  fi
 fi
 
 if [ "$PLAYWRIGHT_INSTALL_DEPS" = "1" ]; then
