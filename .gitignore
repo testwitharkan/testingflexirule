@@ -1,0 +1,8 @@
+node_modules/
+playwright/.cache/
+reports/html/
+reports/results.json
+reports/junit.xml
+reports/generated/
+screenshots/generated/
+.DS_Store
