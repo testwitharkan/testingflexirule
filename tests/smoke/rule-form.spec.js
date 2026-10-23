@@ -36,7 +36,7 @@ test.describe("Rule form conditional behavior", () => {
     await expect(ruleName).toBeVisible({ timeout: 30000 });
     await expect.poll(() => ruleName.evaluate((element) => element.readOnly)).toBe(true);
 
-    const active = page.locator('input[data-fieldname="is_active"]');
+    const active = page.locator('.frappe-control[data-fieldname="is_active"] input[type="checkbox"]').first();
     await expect(active).toBeVisible();
     await active.uncheck({ force: true });
 
