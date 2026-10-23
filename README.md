@@ -37,6 +37,10 @@ Or combine this with site setup:
 
     RUN_PLAYWRIGHT_TESTS=1 CAPTURE_SCREENSHOTS=1 bash scripts/setup-test-site.sh
 
+To keep structured reports (and screenshots when requested) in a timestamped directory inside the repository for an intentional Git commit, add ARCHIVE_PLAYWRIGHT_REPORTS=1:
+
+    RUN_PLAYWRIGHT_TESTS=1 ARCHIVE_PLAYWRIGHT_REPORTS=1 bash scripts/setup-test-site.sh
+
 Requested page screenshots are written under screenshots/generated. Playwright failure screenshots are also enabled only when CAPTURE_SCREENSHOTS=1. Inspect the generated test report for the failing assertion and browser diagnostics.
 
 ## Reports and diagnostics
@@ -50,7 +54,7 @@ Each run writes reports into the repository workspace:
 - reports/generated/layout-audit.json — measured layout/overflow/style geometry records
 - screenshots/generated — explicit screenshot captures
 
-Generated artifacts are ignored by Git by default so routine test runs do not create large or noisy commits. Jules can inspect the report files immediately after running the suite. When you specifically request retaining a run in GitHub, commit the relevant report/audit files and any requested screenshots with a short run-specific name; do not commit full HTML output or personal/session data by default.
+Transient outputs are ignored by Git by default so routine test runs do not create large or noisy commits. Set ARCHIVE_PLAYWRIGHT_REPORTS=1 to copy the JSON result, JUnit report, layout audit, metadata and (only if requested) screenshots into artifacts/playwright-runs/<UTC timestamp>/. Review the contents before committing that run to GitHub. The interactive HTML report remains in reports/html for local inspection; it is not archived because it may bundle browser traces or session-related page data.
 
 ## What the initial suite checks
 
