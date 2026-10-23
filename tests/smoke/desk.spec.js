@@ -58,7 +58,8 @@ test.describe("FlexiRule Desk smoke checks", () => {
     await triggerSelect.selectOption({ label: "After Save" });
 
     const saveResponse = page.waitForResponse((response) =>
-      response.url().includes("method=frappe.desk.form.save.savedocs") &&
+      (response.url().includes("/api/method/frappe.desk.form.save.savedocs") ||
+       response.url().includes("method=frappe.desk.form.save.savedocs")) &&
       response.status() === 200
     );
     await page.getByRole("button", { name: "Save", exact: true }).click();
