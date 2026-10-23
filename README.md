@@ -63,12 +63,12 @@ Transient outputs are ignored by Git by default so routine test runs do not crea
 - Rule list navigation to the Visual Builder.
 - The Rule form's native Link/Select fields and save transition.
 - Lazy loading of the Rule Builder bundle, contract API presence, canvas and zoom/fit controls.
-- Inserting a Condition action, editing its configuration view, and transitioning to/from Raw Configuration.
-- Save/reload persistence of the graph.
+- Rendering the Assignment, Condition, Loop, Switch, Wait, Notify, Raise Error, Query Records, Document Action and Sub-Rule configuration components through the real builder ActionZone.
+- Assignment configuration modal and Raw Configuration navigation, plus save/reload persistence of a Wait node.
 - Layout measurements at desktop and narrower laptop viewport sizes, including document-level horizontal overflow and key component bounds.
 - Evidence useful for debugging: failing assertions, browser errors, and structured layout audit data.
 
-This is a baseline that should grow into a component/interaction matrix for every action type, resolver/configuration family, modal, edge case, and responsive state. A passing run means the listed assertions passed; it does not yet prove every FlexiRule component or every configuration permutation has been exhaustively tested.
+This is a first component-registry baseline; it should continue growing into a behavior matrix for every action type, resolver/configuration family, modal, edge case, and responsive state. The ten registry tests verify the corresponding config editors render instead of falling back to the empty-state component; they do not yet exhaustively verify every editor's business behavior. A passing run means the listed assertions passed; it does not yet prove every FlexiRule component or every configuration permutation has been exhaustively tested.
 
 ## Jules workflow
 
