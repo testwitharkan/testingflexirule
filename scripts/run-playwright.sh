@@ -9,6 +9,13 @@ PLAYWRIGHT_INSTALL_DEPS="$(printenv PLAYWRIGHT_INSTALL_DEPS || printf '%s' '0')"
 CAPTURE_SCREENSHOTS="$(printenv CAPTURE_SCREENSHOTS || printf '%s' '0')"
 export PLAYWRIGHT_BASE_URL
 
+# Keep this run's diagnostics separate from stale files left by a prior Jules run.
+mkdir -p reports/generated
+rm -f reports/results.json reports/junit.xml reports/generated/layout-audit.json
+if [ "$CAPTURE_SCREENSHOTS" = "1" ]; then
+  rm -rf screenshots/generated
+fi
+
 if ! command -v node >/dev/null 2>&1 || ! command -v npm >/dev/null 2>&1; then
   echo "Node.js and npm are required to run the Playwright UI suite." >&2
   exit 2
