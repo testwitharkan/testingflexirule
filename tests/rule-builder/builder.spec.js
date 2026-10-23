@@ -60,7 +60,7 @@ test.describe("FlexiRule Visual Builder", () => {
     await expect(page.locator(".vue-flow")).toBeVisible({ timeout: 60000 });
 
     const node = await addAction(page, "Assignment", "PW Assignment Modal");
-    await node.dblclick();
+    await node.click();
 
     const modal = page.locator(".config-modal-container");
     await expect(modal).toBeVisible({ timeout: 20000 });
