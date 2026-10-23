@@ -5,6 +5,7 @@ on:
     paths:
       - "playwright.config.js"
       - "package.json"
+      - "package-lock.json"
       - "tests/**"
       - "scripts/**"
       - ".github/workflows/ui-suite-static.yml"
@@ -12,6 +13,7 @@ on:
     paths:
       - "playwright.config.js"
       - "package.json"
+      - "package-lock.json"
       - "tests/**"
       - "scripts/**"
       - ".github/workflows/ui-suite-static.yml"
