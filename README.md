@@ -6,9 +6,9 @@ This repository provisions a disposable Frappe v15 test site and contains an ind
 
 Requirements: the repository workspace, Python/Bench and MariaDB/Redis setup used by the existing test-site script, Node.js/npm, and a Frappe site with FlexiRule installed. The application and site setup remain managed by scripts/setup-test-site.sh.
 
-Install the JavaScript dependencies once:
+Install the JavaScript dependencies once. The first `npm install` creates `package-lock.json`; keep that generated lockfile in the repository so future Jules runs can use `npm ci` reproducibly:
 
-    npm install --no-audit --no-fund --package-lock=false
+    npm install --no-audit --no-fund
     npx playwright install chromium
 
 Start the prepared Bench server on port 8000, then run:
