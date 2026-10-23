@@ -10,7 +10,7 @@ This file records what the current Playwright suite verifies. Treat the list as 
 | Rule form | Rule Name, Contact Link selection, Trigger Event selection, native save response and Visual Builder action | Baseline |
 | Builder entry | Lazy-loaded builder constructor and contracts API exist; canvas and Zoom In / Zoom Out / Fit View controls render | Baseline |
 | Action insertion | Insert Assignment and Wait actions using the current ActionZone and give them custom labels | Partial |
-| Action configuration | Assignment config renders its Add Assignment control; Raw Configuration can be opened and exited; modal can be closed | Partial: one action type |
+| Action configuration | Assignment editor controls and Raw Configuration transition work; ten registered editors (Assignment, Condition, Loop, Switch, Wait, Notify, Raise Error, Query Records, Document Action, Sub-Rule) render instead of the empty-config fallback | Partial: render coverage, not full field/validation coverage |
 | Graph lifecycle | A Wait node with its default configuration and custom label remains after Save Rule and page reload | Baseline |
 | Responsive layout | Workspace and builder at 1440x900 and 1024x768; element bounds, computed styles and horizontal document overflow are recorded | Baseline |
 | Runtime diagnostics | Uncaught page errors fail a passing test; console errors and failed requests are attached to test results | Baseline |
