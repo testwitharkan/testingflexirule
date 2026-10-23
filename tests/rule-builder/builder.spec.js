@@ -51,7 +51,7 @@ test.describe("FlexiRule Visual Builder", () => {
     );
   });
 
-  test("Condition action configuration supports Raw Configuration and return navigation", async ({
+  test("Assignment configuration supports Raw Configuration and return navigation", async ({
     page,
     testRules,
   }) => {
