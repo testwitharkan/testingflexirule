@@ -9,9 +9,9 @@ This file records what the current Playwright suite verifies. Treat the list as 
 | Rule list | A real inactive Rule appears in the list; its native Visual Builder action opens that Rule's builder | Baseline |
 | Rule form | Rule Name, Contact Link selection, Trigger Event selection, native save response and Visual Builder action | Baseline |
 | Builder entry | Lazy-loaded builder constructor and contracts API exist; canvas and Zoom In / Zoom Out / Fit View controls render | Baseline |
-| Action insertion | Insert a Condition action using the current ActionZone and give it a custom label | Partial |
-| Action configuration | Modal opens; Raw Configuration can be opened and exited; modal can be closed | Partial: one action type |
-| Graph lifecycle | Custom action label remains after Save Rule and page reload | Baseline |
+| Action insertion | Insert Assignment and Wait actions using the current ActionZone and give them custom labels | Partial |
+| Action configuration | Assignment config renders its Add Assignment control; Raw Configuration can be opened and exited; modal can be closed | Partial: one action type |
+| Graph lifecycle | A Wait node with its default configuration and custom label remains after Save Rule and page reload | Baseline |
 | Responsive layout | Workspace and builder at 1440x900 and 1024x768; element bounds, computed styles and horizontal document overflow are recorded | Baseline |
 | Runtime diagnostics | Uncaught page errors fail a passing test; console errors and failed requests are attached to test results | Baseline |
 | Screenshots | Explicit opt-in screenshots through CAPTURE_SCREENSHOTS=1 | Operational |
