@@ -51,7 +51,10 @@ test.describe("FlexiRule Desk smoke checks", () => {
 
     const doctypeInput = page.locator('[data-fieldname="document_type"] input');
     await doctypeInput.fill("Contact");
-    await doctypeInput.press("Enter");
+    const doctypeSuggestion = page.locator(".awesomplete li[role='option']")
+      .filter({ hasText: "Contact" }).first();
+    await expect(doctypeSuggestion).toBeVisible({ timeout: 15000 });
+    await doctypeSuggestion.click();
     await expect(doctypeInput).toHaveValue("Contact");
 
     const triggerSelect = page.locator('[data-fieldname="trigger_event"] select');
