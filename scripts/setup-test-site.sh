@@ -25,6 +25,9 @@ export SITE_NAME=${SITE_NAME:-"test_site"}
 export MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-"mariadb_root_password"}
 
 export CI=Yes
+export RUN_PLAYWRIGHT_TESTS=${RUN_PLAYWRIGHT_TESTS:-"0"}
+export CAPTURE_SCREENSHOTS=${CAPTURE_SCREENSHOTS:-"0"}
+export PLAYWRIGHT_BASE_URL=${PLAYWRIGHT_BASE_URL:-"http://localhost:8000"}
 # ==============================================================================
 
 echo "Starting environment setup for FlexiRule..."
@@ -110,6 +113,9 @@ echo "Creating site and installing app..."
 bench new-site "${SITE_NAME}" --mariadb-root-password "${MARIADB_ROOT_PASSWORD}" --admin-password admin --force
 bench --site "${SITE_NAME}" install-app flexirule
 
+# Complete the native Frappe setup wizard so browser login lands in Desk.
+bench --site "${SITE_NAME}" execute frappe.utils.install.complete_setup_wizard
+
 # 10. Build Assets
 echo "Building assets..."
 bench build --app flexirule
@@ -144,8 +150,23 @@ bench --site "${SITE_NAME}" run-tests --app flexirule
 TEST_EXIT_CODE=$?
 set -e
 
+UI_TEST_EXIT_CODE=0
+if [ "$RUN_PLAYWRIGHT_TESTS" = "1" ]; then
+    echo "Running integrated Playwright UI tests..."
+    cd "$GITHUB_WORKSPACE"
+    set +e
+    bash scripts/run-playwright.sh
+    UI_TEST_EXIT_CODE=$?
+    set -e
+else
+    echo "Playwright UI tests were not requested (RUN_PLAYWRIGHT_TESTS=0)."
+fi
+
 echo "Shutting down background Bench server..."
 kill "$BENCH_PID" || true
 
 echo "Setup and testing completed!"
-exit "$TEST_EXIT_CODE"
+if [ "$TEST_EXIT_CODE" -ne 0 ]; then
+    exit "$TEST_EXIT_CODE"
+fi
+exit "$UI_TEST_EXIT_CODE"
