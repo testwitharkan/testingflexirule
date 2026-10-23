@@ -57,13 +57,13 @@ test.describe("FlexiRule Desk smoke checks", () => {
     const triggerSelect = page.locator('[data-fieldname="trigger_event"] select');
     await triggerSelect.selectOption({ label: "After Save" });
 
-    const saveResponse = page.waitForResponse((response) =>
-      (response.url().includes("/api/method/frappe.desk.form.save.savedocs") ||
-       response.url().includes("method=frappe.desk.form.save.savedocs")) &&
-      response.status() === 200
+    const saveResponsePromise = page.waitForResponse((response) =>
+      response.url().includes("/api/method/frappe.desk.form.save.savedocs") ||
+      response.url().includes("method=frappe.desk.form.save.savedocs")
     );
     await page.getByRole("button", { name: "Save", exact: true }).click();
-    await saveResponse;
+    const saveResponse = await saveResponsePromise;
+    expect(saveResponse.status()).toBe(200);
 
     await expect(page.getByRole("button", { name: "Visual Builder" })).toBeVisible({
       timeout: 30000,
